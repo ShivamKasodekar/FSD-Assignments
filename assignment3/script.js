@@ -7,25 +7,25 @@ const products = [
     id: 1,
     name: "Stylish Jacket",
     price: 1999,
-    image: "https://via.placeholder.com/300x250"
+    image: "images/jacket.jpg"
   },
   {
     id: 2,
     name: "Casual Shirt",
     price: 999,
-    image: "https://via.placeholder.com/300x250"
+    image: "images/casual shirt.jpg"
   },
   {
     id: 3,
     name: "Jeans",
     price: 1499,
-    image: "https://via.placeholder.com/300x250"
+    image: "images/jeans.jpg"
   },
   {
     id: 4,
     name: "Sneakers",
     price: 2499,
-    image: "https://via.placeholder.com/300x250"
+    image: "images/snearker.jpg"
   }
 ];
 
@@ -33,13 +33,22 @@ let cart = JSON.parse(localStorage.getItem(currentUser + "_cart")) || [];
 
 // Load Products
 function loadProducts() {
-  const productList = document.getElementById("product-list");
+  const products = [
+  { id: 1, name: "Men Jacket", price: 1999, category: "Men", image: "https://via.placeholder.com/300" },
+  { id: 2, name: "Women Dress", price: 1499, category: "Women", image: "https://via.placeholder.com/300" },
+  { id: 3, name: "Sneakers", price: 2499, category: "Shoes", image: "https://via.placeholder.com/300" },
+  { id: 4, name: "Watch", price: 999, category: "Accessories", image: "https://via.placeholder.com/300" }
+];
+}
+function displayProducts(productArray) {
+  let productList = document.getElementById("product-list");
+  productList.innerHTML = "";
 
-  products.forEach(product => {
+  productArray.forEach(product => {
     productList.innerHTML += `
       <div class="col-md-3 mb-4">
-        <div class="card">
-          <img src="${product.image}" class="card-img-top">
+        <div class="card shadow">
+          <img src="${product.image}">
           <div class="card-body text-center">
             <h5>${product.name}</h5>
             <p>₹${product.price}</p>
@@ -51,6 +60,19 @@ function loadProducts() {
       </div>
     `;
   });
+}
+
+// Load all
+displayProducts(products);
+//seacrch funchtion
+function searchProduct() {
+  let input = document.getElementById("searchBox").value.toLowerCase();
+
+  let filtered = products.filter(p =>
+    p.name.toLowerCase().includes(input)
+  );
+
+  displayProducts(filtered);
 }
 
 // Add to Cart
@@ -101,3 +123,4 @@ function removeItem(index) {
 
 // Initialize
 loadProducts();
+updateCartCount();
