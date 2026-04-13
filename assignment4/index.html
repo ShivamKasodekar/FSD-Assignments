@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Monitoring Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="light-mode">
+    <div id="loading" class="loading-overlay">
+        <div class="spinner"></div>
+    </div>
+
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-cloud-sun"></i>
+                <h2>Weather Forecast</h2>
+            </div>
+            <nav>
+                <ul>
+                    <li class="active"><i class="fa-solid fa-border-all"></i> Dashboard</li>
+                    <li><i class="fa-solid fa-map-location-dot"></i> Maps</li>
+                    <li><i class="fa-solid fa-chart-pie"></i> Analytics</li>
+                    <li><i class="fa-solid fa-gear"></i> Settings</li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header>
+                <div class="search-bar">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <select id="location-select">
+                        <option value="london">London, UK</option>
+                        <option value="newyork">New York, USA</option>
+                        <option value="tokyo">Tokyo, Japan</option>
+                        <option value="mumbai">Mumbai, India</option>
+                    </select>
+                </div>
+
+                <div class="header-actions">
+                    <button class="icon-btn" aria-label="Notifications"><i class="fa-solid fa-bell"></i></button>
+                    <button class="icon-btn" id="theme-toggle" aria-label="Toggle Theme"><i
+                            class="fa-solid fa-moon"></i></button>
+                    <div class="user-profile">
+                        <img src="https://api.dicebear.com/7.x/notionists/svg?seed=Felix" alt="User Avatar">
+                    </div>
+                </div>
+            </header>
+
+            <!-- Metrics Cards -->
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-icon temp"><i class="fa-solid fa-temperature-half"></i></div>
+                    <div class="metric-info">
+                        <h3>Temperature</h3>
+                        <p id="temp-val">--°C</p>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon humidity"><i class="fa-solid fa-droplet"></i></div>
+                    <div class="metric-info">
+                        <h3>Humidity</h3>
+                        <p id="humidity-val">--%</p>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon wind"><i class="fa-solid fa-wind"></i></div>
+                    <div class="metric-info">
+                        <h3>Wind Speed</h3>
+                        <p id="wind-val">-- km/h</p>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon aqi"><i class="fa-solid fa-leaf"></i></div>
+                    <div class="metric-info">
+                        <h3>AQI</h3>
+                        <p id="aqi-val">--</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Area -->
+            <div class="charts-grid">
+                <div class="chart-container main-chart">
+                    <h3>Temperature Trends (7 Days)</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="tempChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-container side-chart">
+                    <h3>Humidity Levels</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="humidityChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-container side-chart">
+                    <h3>Weather Conditions</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="conditionChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-container main-chart">
+                    <h3>Wind Speed Variations</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="windChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
