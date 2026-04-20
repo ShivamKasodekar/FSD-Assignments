@@ -1,0 +1,80 @@
+<div class="flex flex-col md:flex-row gap-6 fade-in">
+    <!-- Admin Sidebar -->
+    <div class="w-full md:w-64 flex-shrink-0">
+        <div class="bg-gray-900 rounded-lg shadow-lg overflow-hidden text-gray-300">
+            <div class="p-4 bg-gray-800 border-b border-gray-700">
+                <h2 class="text-xl font-bold text-white"><i class="fa-solid fa-shield-halved text-blue-500 mr-2"></i>Admin Panel</h2>
+            </div>
+            <nav class="flex flex-col p-2 gap-1">
+                <a href="/admin/dashboard" class="px-4 py-3 rounded hover:bg-gray-800 hover:text-white bg-gray-800 text-white transition"><i class="fa-solid fa-chart-pie w-6"></i> Dashboard</a>
+                <a href="/admin/packages" class="px-4 py-3 rounded hover:bg-gray-800 hover:text-white transition"><i class="fa-solid fa-map-location-dot w-6"></i> Packages</a>
+                <a href="/admin/bookings" class="px-4 py-3 rounded hover:bg-gray-800 hover:text-white transition"><i class="fa-solid fa-suitcase-rolling w-6"></i> Bookings</a>
+                <a href="/admin/users" class="px-4 py-3 rounded hover:bg-gray-800 hover:text-white transition"><i class="fa-solid fa-users w-6"></i> Users</a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex-grow">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6">Overview</h1>
+        
+        <!-- Stats Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="bg-white rounded-lg shadow p-6 border-l-4 border-blue-500 flex items-center justify-between">
+                <div>
+                    <p class="text-sm text-gray-500 uppercase font-bold">Total Users</p>
+                    <p class="text-3xl font-extrabold text-gray-900"><%= stats.userCount %></p>
+                </div>
+                <i class="fa-solid fa-users text-4xl text-blue-200"></i>
+            </div>
+            <div class="bg-white rounded-lg shadow p-6 border-l-4 border-green-500 flex items-center justify-between">
+                <div>
+                    <p class="text-sm text-gray-500 uppercase font-bold">Total Packages</p>
+                    <p class="text-3xl font-extrabold text-gray-900"><%= stats.packageCount %></p>
+                </div>
+                <i class="fa-solid fa-maptext text-4xl text-green-200"></i>
+            </div>
+            <div class="bg-white rounded-lg shadow p-6 border-l-4 border-purple-500 flex items-center justify-between">
+                <div>
+                    <p class="text-sm text-gray-500 uppercase font-bold">Total Bookings</p>
+                    <p class="text-3xl font-extrabold text-gray-900"><%= stats.bookingCount %></p>
+                </div>
+                <i class="fa-solid fa-suitcase text-4xl text-purple-200"></i>
+            </div>
+        </div>
+
+        <!-- Recent Bookings -->
+        <div class="bg-white rounded-lg shadow overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-200 bg-gray-50 flex justify-between items-center">
+                <h3 class="font-bold text-gray-800">Recent Bookings</h3>
+                <a href="/admin/bookings" class="text-sm text-blue-600 hover:underline">View All</a>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">User</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Package</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Amount</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Date</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        <% if(recentBookings && recentBookings.length > 0) { %>
+                            <% recentBookings.forEach(b => { %>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"><%= b.user ? b.user.name : 'Deleted User' %></td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><%= b.package ? b.package.title : 'Deleted Package' %></td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-bold">₹<%= b.totalPrice %></td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><%= new Date(b.createdAt).toLocaleDateString() %></td>
+                                </tr>
+                            <% }) %>
+                        <% } else { %>
+                            <tr><td colspan="4" class="px-6 py-4 text-center text-gray-500">No bookings yet.</td></tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,37 @@
+<nav class="bg-blue-600 shadow-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16">
+            <div class="flex items-center">
+                <a href="/" class="flex-shrink-0 flex items-center text-white font-bold text-xl tracking-wider">
+                    <i class="fa-solid fa-plane-departure mr-2"></i> Worldtourr
+                </a>
+                <div class="hidden sm:ml-6 sm:flex sm:space-x-4">
+                    <a href="/" class="text-white hover:bg-blue-500 px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                    <a href="/packages" class="text-white hover:bg-blue-500 px-3 py-2 rounded-md text-sm font-medium">Packages</a>
+                    <a href="/about" class="text-white hover:bg-blue-500 px-3 py-2 rounded-md text-sm font-medium">About</a>
+                    <a href="/contact" class="text-white hover:bg-blue-500 px-3 py-2 rounded-md text-sm font-medium">Contact</a>
+                </div>
+            </div>
+            <div class="flex items-center">
+                <% if(user) { %>
+                    <div class="relative ml-3 group">
+                        <div class="flex items-center space-x-3 text-white">
+                            <span class="text-sm font-medium">Hi, <%= user.name %>!</span>
+                            <% if(user.role === 'admin') { %>
+                                <a href="/admin/dashboard" class="bg-blue-800 hover:bg-blue-700 text-white px-3 py-2 rounded-md text-sm font-medium">Admin Panel</a>
+                            <% } else { %>
+                                <a href="/dashboard" class="bg-blue-800 hover:bg-blue-700 text-white px-3 py-2 rounded-md text-sm font-medium">Dashboard</a>
+                            <% } %>
+                            <a href="/auth/logout" class="text-red-100 hover:text-white px-3 py-2 text-sm font-medium"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+                        </div>
+                    </div>
+                <% } else { %>
+                    <div class="flex space-x-4">
+                        <a href="/auth/login" class="text-white hover:text-gray-200 px-3 py-2 rounded-md text-sm font-medium">Login</a>
+                        <a href="/auth/register" class="bg-white text-blue-600 hover:bg-gray-100 px-4 py-2 rounded-md text-sm font-bold shadow">Register</a>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</nav>

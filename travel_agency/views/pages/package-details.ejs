@@ -1,0 +1,45 @@
+<div class="max-w-5xl mx-auto py-8 fade-in">
+    <a href="/packages" class="text-blue-600 hover:text-blue-800 mb-6 inline-block font-medium"><i class="fa-solid fa-arrow-left mr-1"></i> Back to packages</a>
+    
+    <div class="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col md:flex-row">
+        <div class="md:w-1/2">
+            <img src="<%= pkg.imageUrl %>" alt="<%= pkg.title %>" class="h-64 md:h-full w-full object-cover">
+        </div>
+        
+        <div class="p-8 md:w-1/2 flex flex-col">
+            <div class="uppercase tracking-wide text-sm text-blue-600 font-bold mb-1"><%= pkg.location %></div>
+            <h1 class="block mt-1 text-3xl leading-tight font-extrabold text-gray-900 mb-2"><%= pkg.title %></h1>
+            <p class="text-gray-500 font-medium mb-4"><i class="fa-regular fa-clock mr-1"></i> <%= pkg.duration %></p>
+            
+            <div class="text-3xl font-bold text-gray-900 mb-6 border-b border-gray-100 pb-4">₹<%= pkg.price %> <span class="text-sm font-normal text-gray-500">per person</span></div>
+            
+            <p class="text-gray-700 leading-relaxed mb-8 flex-grow">
+                <%= pkg.description %>
+            </p>
+
+            <div class="mt-auto bg-gray-50 p-4 rounded-lg border border-gray-200">
+                <h3 class="text-lg font-bold text-gray-900 mb-3">Book this Package</h3>
+                <% if(user) { %>
+                    <form action="/dashboard/book/<%= pkg._id %>" method="POST" class="flex flex-col gap-3">
+                        <div class="flex gap-4">
+                            <div class="w-1/2">
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Travel Date</label>
+                                <input type="date" name="travelDate" required min="<%= new Date().toISOString().split('T')[0] %>" class="w-full border-gray-300 rounded shadow-sm py-2 px-3 focus:ring-blue-500 focus:border-blue-500">
+                            </div>
+                            <div class="w-1/2">
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Passengers</label>
+                                <input type="number" name="passengers" min="1" value="1" required class="w-full border-gray-300 rounded shadow-sm py-2 px-3 focus:ring-blue-500 focus:border-blue-500">
+                            </div>
+                        </div>
+                        <button type="submit" class="w-full bg-blue-600 text-white font-bold py-3 mt-2 rounded shadow hover:bg-blue-700 hover:shadow-lg transition">Confirm Booking</button>
+                    </form>
+                <% } else { %>
+                    <div class="text-center py-4">
+                        <p class="text-gray-600 mb-3">You must be logged in to book.</p>
+                        <a href="/auth/login" class="bg-gray-800 text-white px-6 py-2 rounded font-medium hover:bg-gray-900">Login to Book</a>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</div>

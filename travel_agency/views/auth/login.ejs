@@ -1,0 +1,23 @@
+<div class="max-w-md mx-auto mt-10 bg-white p-8 border border-gray-200 rounded-lg shadow-lg fade-in">
+    <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Welcome Back</h2>
+    
+    <form action="/auth/login" method="POST">
+        <div class="mb-5">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="email">Email Address</label>
+            <input type="email" name="email" id="email" required class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="user@example.com">
+        </div>
+        
+        <div class="mb-6">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="password">Password</label>
+            <input type="password" name="password" id="password" required class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="••••••••">
+        </div>
+        
+        <button type="submit" class="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded hover:bg-blue-700 transition duration-200 shadow-md">
+            Login
+        </button>
+    </form>
+    
+    <p class="text-center mt-6 text-gray-600">
+        Don't have an account? <a href="/auth/register" class="text-blue-600 hover:underline font-medium">Register here</a>
+    </p>
+</div>

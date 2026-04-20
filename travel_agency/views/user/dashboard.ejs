@@ -1,0 +1,75 @@
+<div class="max-w-7xl mx-auto py-8 fade-in">
+    <div class="flex justify-between items-center mb-8 border-b pb-4">
+        <h1 class="text-3xl font-bold text-gray-800">My Dashboard</h1>
+        <div class="text-gray-600">
+            <span class="font-bold"><%= user.name %></span> | <%= user.email %>
+        </div>
+    </div>
+
+    <div class="bg-white shadow rounded-lg overflow-hidden">
+        <div class="px-6 py-4 border-b border-gray-200 bg-gray-50">
+            <h3 class="text-xl font-bold text-gray-800"><i class="fa-solid fa-suitcase-rolling mr-2 text-blue-600"></i> My Bookings (<%= bookings.length %>)</h3>
+        </div>
+        
+        <% if(bookings.length > 0) { %>
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Package</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Travel Date</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Passengers</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total Price</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Booked On</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        <% bookings.forEach(booking => { %>
+                            <tr class="hover:bg-gray-50 transition">
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <% if(booking.package) { %>
+                                        <div class="flex items-center">
+                                            <div class="flex-shrink-0 h-10 w-10">
+                                                <img class="h-10 w-10 rounded-full object-cover" src="<%= booking.package.imageUrl %>" alt="">
+                                            </div>
+                                            <div class="ml-4">
+                                                <div class="text-sm font-medium text-gray-900"><a href="/packages/<%= booking.package._id %>" class="hover:text-blue-600 hover:underline"><%= booking.package.title %></a></div>
+                                                <div class="text-sm text-gray-500"><%= booking.package.location %></div>
+                                            </div>
+                                        </div>
+                                    <% } else { %>
+                                        <span class="text-red-500 text-sm">Package Unavailable</span>
+                                    <% } %>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-gray-900"><%= new Date(booking.travelDate).toLocaleDateString() %></div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    <%= booking.passengers %>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-bold">
+                                    ₹<%= booking.totalPrice %>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full <%= booking.status === 'Confirmed' ? 'bg-green-100 text-green-800' : (booking.status === 'Pending' ? 'bg-yellow-100 text-yellow-800' : 'bg-red-100 text-red-800') %>">
+                                        <%= booking.status %>
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    <%= new Date(booking.createdAt).toLocaleDateString() %>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        <% } else { %>
+            <div class="p-8 text-center text-gray-500">
+                <i class="fa-solid fa-plane text-4xl mb-3 text-gray-300"></i>
+                <p class="text-lg">You haven't booked any packages yet.</p>
+                <a href="/packages" class="inline-block mt-4 bg-blue-600 text-white font-bold py-2 px-6 rounded hover:bg-blue-700">Explore Destinations</a>
+            </div>
+        <% } %>
+    </div>
+</div>

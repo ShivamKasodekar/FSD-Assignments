@@ -1,0 +1,59 @@
+<div class="flex flex-col md:flex-row gap-6 fade-in">
+    <div class="w-full md:w-64 flex-shrink-0">
+        <div class="bg-gray-900 rounded-lg shadow-lg overflow-hidden text-gray-300">
+            <div class="p-4 bg-gray-800 border-b border-gray-700 bg-gray-800 text-white">
+                <a href="/admin/packages" class="hover:underline">&larr; Back to Packages</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex-grow">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6">Edit Package</h1>
+        
+        <div class="bg-white rounded-lg shadow overflow-hidden p-8">
+            <form action="/admin/packages/<%= pkg._id %>?_method=PUT" method="POST" class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Title</label>
+                        <input type="text" name="title" value="<%= pkg.title %>" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Location</label>
+                        <input type="text" name="location" value="<%= pkg.location %>" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Price (₹)</label>
+                        <input type="number" name="price" value="<%= pkg.price %>" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Duration</label>
+                        <input type="text" name="duration" value="<%= pkg.duration %>" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Image URL</label>
+                    <input type="url" name="imageUrl" value="<%= pkg.imageUrl %>" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Description</label>
+                    <textarea name="description" rows="4" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"><%= pkg.description %></textarea>
+                </div>
+
+                <div class="flex items-center">
+                    <input id="featured" name="featured" type="checkbox" <%= pkg.featured ? 'checked' : '' %> class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                    <label for="featured" class="ml-2 block text-sm text-gray-900">
+                        Feature this package on Home Page
+                    </label>
+                </div>
+
+                <div class="pt-4 border-t border-gray-200">
+                    <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded shadow hover:bg-blue-700 transition font-medium">Update Package</button>
+                    <a href="/admin/packages" class="ml-4 text-gray-600 hover:underline">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,59 @@
+<div class="max-w-7xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
+    
+    <div class="flex flex-col md:flex-row justify-between items-center mb-8 fade-in">
+        <h1 class="text-3xl font-extrabold text-gray-900 mb-4 md:mb-0">Explore Market</h1>
+        
+        <!-- Search and Filter Form -->
+        <form action="/items" method="GET" class="flex w-full md:w-auto space-x-2">
+            <div class="relative flex-grow md:w-64">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <i class="fa-solid fa-search text-gray-400"></i>
+                </div>
+                <input type="text" name="search" value="<%= req.query.search || '' %>" placeholder="Search items..." class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+            </div>
+            <select name="category" class="block w-32 pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-lg">
+                <option value="All">All Categories</option>
+                <option value="Car" <%= req.query.category === 'Car' ? 'selected' : '' %>>Cars</option>
+                <option value="Bike" <%= req.query.category === 'Bike' ? 'selected' : '' %>>Bikes</option>
+                <option value="Electronics" <%= req.query.category === 'Electronics' ? 'selected' : '' %>>Electronics</option>
+                <option value="Furniture" <%= req.query.category === 'Furniture' ? 'selected' : '' %>>Furniture</option>
+                <option value="Other" <%= req.query.category === 'Other' ? 'selected' : '' %>>Other</option>
+            </select>
+            <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg shadow-sm text-white bg-indigo-600 hover:bg-indigo-700">Filter</button>
+        </form>
+    </div>
+
+    <!-- Items Grid -->
+    <% if (items.length === 0) { %>
+        <div class="text-center py-20 bg-white rounded-2xl shadow-sm border border-gray-100">
+            <i class="fa-regular fa-folder-open text-6xl text-gray-300 mb-4"></i>
+            <h3 class="text-xl font-medium text-gray-900">No items found</h3>
+            <p class="text-gray-500 mt-2">Try adjusting your search or filters.</p>
+            <a href="/items" class="mt-4 inline-block text-indigo-600 hover:text-indigo-800 font-medium">Clear Filters</a>
+        </div>
+    <% } else { %>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 fade-in">
+            <% items.forEach(item => { %>
+                <a href="/items/<%= item._id %>" class="group bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover-card cursor-pointer flex flex-col h-full relative">
+                    <div class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-md text-xs font-bold text-gray-700 shadow-sm z-10">
+                        <%= item.category %>
+                    </div>
+                    <div class="h-48 overflow-hidden bg-gray-200">
+                        <img src="<%= item.imageUrl %>" alt="<%= item.title %>" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                    </div>
+                    <div class="p-5 flex-grow flex flex-col">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold text-gray-900 line-clamp-1"><%= item.title %></h3>
+                        </div>
+                        <p class="text-2xl font-extrabold text-indigo-600 mb-3">₹<%= item.price.toLocaleString() %></p>
+                        <div class="mt-auto pt-4 border-t border-gray-50 text-sm text-gray-500 flex justify-between items-center">
+                            <span><i class="fa-solid fa-location-dot mr-1"></i> <%= item.location %></span>
+                            <span class="bg-gray-100 px-2 py-1 rounded text-xs"><%= item.condition %></span>
+                        </div>
+                    </div>
+                </a>
+            <% }) %>
+        </div>
+    <% } %>
+
+</div>
